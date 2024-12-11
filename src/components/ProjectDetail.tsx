@@ -11,13 +11,13 @@ export const ProjectDetail = ({ title, description, members, tasks, addTaskToPro
         if (taskRef && taskRef.current) taskRef.current.value = '';
     }
 
-    const deleteTask = (task: string) => {
-        deleteTaskFromProject(task);
+    const deleteTask = (e: React.MouseEvent<HTMLElement>) => {
+        deleteTaskFromProject(e.currentTarget.getAttribute('data-appmode') ?? '');
     }
 
     return (
         <>
-            <h2>{title}</h2>
+            <h2><strong>Project Title: </strong>{title}</h2>
             <p>
                 <strong>Description: </strong>
                 {description}
@@ -37,17 +37,20 @@ export const ProjectDetail = ({ title, description, members, tasks, addTaskToPro
                 tasks && <ul className="table-auto w-full border-collapse border border-gray-300 mt-4">
                     {tasks.map((task: string) => {
                         return (
-                            <li className="table-row" key={task}>
-                                <span className="table-cell border border-gray-300 p-2">{task}</span>
+                            <li className="table-row w-full" key={task}>
+                                <span className="table-cell border border-gray-300 p-2 width-90-per-cent">{task}</span>
                                 <span className="table-cell border border-gray-300 p-2">
-                                    <Button 
-                                        type="button"
-                                        label="Delete"
-                                        onClick={deleteTask(task)}
-                                        className="bg-blue-500 text-white p-1 rounded"
+                                    <a 
+                                        className="text-white bg-blue-700 hover:bg-blue-800 
+                                        focus:ring-4 focus:ring-blue-300 font-medium rounded-lg 
+                                        text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 
+                                        focus:outline-none dark:focus:ring-blue-800
+                                        hover:cursor-pointer" 
+                                        data-appmode={task} 
+                                        onClick={deleteTask}
                                     >
                                         Delete
-                                    </Button>
+                                    </a>
                                 </span>
                             </li>
                         );
