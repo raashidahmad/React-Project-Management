@@ -1,5 +1,10 @@
 export interface Project {
     title: string
     description: string
-    members: number
+    members: string
 }
+
+export interface NewProject {
+    onAddProject: (newProject: Project) => void
+}
+
