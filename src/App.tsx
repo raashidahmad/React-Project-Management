@@ -50,7 +50,22 @@ function App() {
   }
 
   const deleteTask = (task: string) => {
-
+    const newList: any = projectList.map((p) => {
+      if (p.title === selectedProject?.title) {
+        let tasksWithTask = p.tasks ? p.tasks.filter(t => t !== task) : [];
+        return {
+          ...selectedProject,
+          tasks: [...tasksWithTask]
+        }
+      }
+      return p;
+    });
+    
+    const updatedProject = newList.find((p: any) => p.title === selectedProject?.title);
+    if (updatedProject) {
+      setSelectedProject(updatedProject);
+    }
+    setProjectList(newList);
   }
 
   return (
@@ -74,6 +89,7 @@ function App() {
           members={selectedProject.members}
           tasks={selectedProject?.tasks ?? []}
           addTaskToProject={addTaskToProject} 
+          deleteTaskFromProject={deleteTask}
           /> 
         }
       </div>

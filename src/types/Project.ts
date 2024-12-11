@@ -11,6 +11,7 @@ export interface EditProject {
     members: string
     tasks?: string[]
     addTaskToProject: (task: string) => void
+    deleteTaskFromProject: (task: string) => void
 }
 
 export interface NewProject {
